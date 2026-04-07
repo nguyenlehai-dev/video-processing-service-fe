@@ -19,13 +19,10 @@ export default function Auth() {
 
     try {
       if (isLogin) {
-        // OAuth2 Password Request format requires form data
-        const params = new URLSearchParams();
-        params.append('username', formData.username);
-        params.append('password', formData.password);
-        
-        const res = await apiClient.post('/auth/login', params, {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        // Backend expects JSON for LoginRequest: { email, password }
+        const res = await apiClient.post('/auth/login', {
+          email: formData.email,
+          password: formData.password
         });
         
         setToken(res.data.access_token);
@@ -60,37 +57,37 @@ export default function Auth() {
         )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div>
-            <label>Username</label>
-            <div style={{ position: 'relative' }}>
-              <User size={18} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-              <input 
-                type="text" 
-                placeholder="Enter username" 
-                style={{ paddingLeft: '2.5rem' }}
-                value={formData.username}
-                onChange={e => setFormData({...formData, username: e.target.value})}
-                required 
-              />
-            </div>
-          </div>
-
           {!isLogin && (
             <div>
-              <label>Email</label>
+              <label>Username</label>
               <div style={{ position: 'relative' }}>
-                <Mail size={18} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <User size={18} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input 
-                  type="email" 
-                  placeholder="Enter email" 
+                  type="text" 
+                  placeholder="Enter username" 
                   style={{ paddingLeft: '2.5rem' }}
-                  value={formData.email}
-                  onChange={e => setFormData({...formData, email: e.target.value})}
+                  value={formData.username}
+                  onChange={e => setFormData({...formData, username: e.target.value})}
                   required 
                 />
               </div>
             </div>
           )}
+
+          <div>
+            <label>Email</label>
+            <div style={{ position: 'relative' }}>
+              <Mail size={18} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+              <input 
+                type="email" 
+                placeholder="Enter email" 
+                style={{ paddingLeft: '2.5rem' }}
+                value={formData.email}
+                onChange={e => setFormData({...formData, email: e.target.value})}
+                required 
+              />
+            </div>
+          </div>
 
           <div>
             <label>Password</label>

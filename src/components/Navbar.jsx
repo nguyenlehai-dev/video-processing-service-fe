@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
-import { LogOut, Video, LayoutDashboard, Key } from 'lucide-react';
+import { LogOut, Video, LayoutDashboard, Key, FileCode2, ListTree } from 'lucide-react';
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuthStore();
@@ -24,6 +24,8 @@ export default function Navbar() {
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <Link to="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><LayoutDashboard size={18} /> Dashboard</Link>
             <Link to="/studio" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Video size={18} /> Studio</Link>
+            <Link to="/jobs" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><ListTree size={18} /> Task Jobs</Link>
+            <Link to="/api-docs" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><FileCode2 size={18} /> API Docs</Link>
           </div>
         )}
       </div>

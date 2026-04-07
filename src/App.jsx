@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import Studio from './pages/Studio';
+import ApiDocs from './pages/ApiDocs';
+import Jobs from './pages/Jobs';
 import { useAuthStore } from './store/useAuthStore';
 import { apiClient } from './api/client';
 
@@ -13,7 +15,7 @@ export default function App() {
   useEffect(() => {
     // Optionally fetch user info on mount if authenticated
     if (isAuthenticated) {
-      apiClient.get('/users/me')
+      apiClient.get('/auth/me')
         .then(res => setUser(res.data))
         .catch(err => console.error("Session might be expired", err));
     }
@@ -27,6 +29,8 @@ export default function App() {
         {/* Protected Routes */}
         <Route path="/" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/studio" element={isAuthenticated ? <Studio /> : <Navigate to="/login" />} />
+        <Route path="/jobs" element={isAuthenticated ? <Jobs /> : <Navigate to="/login" />} />
+        <Route path="/api-docs" element={isAuthenticated ? <ApiDocs /> : <Navigate to="/login" />} />
       </Routes>
     </Layout>
   );
