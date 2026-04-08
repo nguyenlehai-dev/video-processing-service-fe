@@ -23,7 +23,8 @@ export default function ApiDocs() {
   "status": "pending",
   "message": "Processing job queued.",
   "thumbnail_url": null,
-  "has_audio": null
+  "has_audio": null,
+  "output_duration": null
 }`;
 
   const endpoints = [
@@ -221,6 +222,7 @@ export default function ApiDocs() {
   "output_url": "https://cdn.plxeditor.com/output/merge_a9b92426.mp4",
   "thumbnail_url": "https://cdn.plxeditor.com/output/merge_a9b92426_thumbnail.jpg",
   "has_audio": true,
+  "output_duration": 16.02,
   "created_at": "2026-04-07T03:33:30.000Z",
   "completed_at": "2026-04-07T03:34:10.000Z"
 }`
