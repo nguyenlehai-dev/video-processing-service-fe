@@ -1,16 +1,50 @@
-# React + Vite
+# Video Processing Service FE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend quản trị cho hệ thống xử lý video.
 
-Currently, two official plugins are available:
+## Source Of Truth
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Repo này là **source gốc duy nhất** để phát triển frontend:
 
-## React Compiler
+- chỉnh code tại `/home/vpsroot/projects/frontend/video-processing-service-fe`
+- không chỉnh tay trong:
+  - `/home/vpsroot/projects/frontend/video-processing-service-fe-staging`
+  - `/home/vpsroot/projects/frontend/video-processing-service-fe-prod`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Hai thư mục `-staging` và `-prod` chỉ là checkout deploy theo branch tương ứng.
 
-## Expanding the ESLint configuration
+## Branch Release Flow
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `dev`: nhánh phát triển
+- `staging`: deploy lên `https://test.plxeditor.com/`
+- `prod`: deploy lên `https://plxeditor.com/login`
+
+Flow chuẩn:
+
+- `dev -> staging -> prod`
+- `staging -> test -> promote -> prod`
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Runtime Config
+
+- `Dockerfile`: image runtime cho production
+- `Dockerfile.staging`: image runtime cho staging
+- `nginx.conf`: proxy frontend production
+- `nginx.staging.conf`: proxy frontend staging sang backend `video-api-staging`
+
+## Deployment Docs
+
+- [Deployment Flow](/home/vpsroot/projects/frontend/video-processing-service-fe/docs/deployment/DEPLOYMENT_FLOW.md)
+- [Backend Staging + Prod Setup](/home/vpsroot/projects/backend/video-processing-service/docs/staging-prod-setup.md)
