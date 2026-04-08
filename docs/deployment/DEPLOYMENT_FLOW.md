@@ -13,10 +13,7 @@ Production user entrypoint:
 
 - Chỉ có **1 source gốc** để phát triển:
   - `/home/vpsroot/projects/frontend/video-processing-service-fe`
-- Các thư mục deploy:
-  - `/home/vpsroot/projects/frontend/video-processing-service-fe-staging`
-  - `/home/vpsroot/projects/frontend/video-processing-service-fe-prod`
-  chỉ là worktree/checkouts để chạy môi trường, không phải nơi chỉnh code.
+- Staging và prod chạy từ Docker image build theo branch, không chạy từ local worktree.
 
 ## Release Flow
 
@@ -37,9 +34,12 @@ Short form:
 - `staging` dùng `nginx.staging.conf`
 - `prod` dùng `Dockerfile`
 - `prod` dùng `nginx.conf`
+- GitHub Actions build/push:
+  - `staging` -> `ghcr.io/nguyenlehai-dev/video-processing-service-fe:staging`
+  - `prod` -> `ghcr.io/nguyenlehai-dev/video-processing-service-fe:prod`
 
 ## Rules
 
-- Không sửa trực tiếp trong các thư mục `-staging` và `-prod`
 - Không copy source bằng tay giữa các môi trường
 - Promote chỉ qua branch và git history
+- Deploy server chỉ `pull` image theo tag branch

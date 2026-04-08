@@ -7,11 +7,8 @@ Frontend quản trị cho hệ thống xử lý video.
 Repo này là **source gốc duy nhất** để phát triển frontend:
 
 - chỉnh code tại `/home/vpsroot/projects/frontend/video-processing-service-fe`
-- không chỉnh tay trong:
-  - `/home/vpsroot/projects/frontend/video-processing-service-fe-staging`
-  - `/home/vpsroot/projects/frontend/video-processing-service-fe-prod`
-
-Hai thư mục `-staging` và `-prod` chỉ là checkout deploy theo branch tương ứng.
+- deploy bằng image theo branch `staging` và `prod`
+- không build runtime từ checkout `-staging/-prod` nữa
 
 ## Branch Release Flow
 
@@ -43,6 +40,7 @@ npm run build
 - `Dockerfile.staging`: image runtime cho staging
 - `nginx.conf`: proxy frontend production
 - `nginx.staging.conf`: proxy frontend staging sang backend `video-api-staging`
+- image publish qua GitHub Actions lên `ghcr.io/nguyenlehai-dev/video-processing-service-fe`
 
 ## Deployment Docs
 
