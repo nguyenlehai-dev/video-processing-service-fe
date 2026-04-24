@@ -72,10 +72,10 @@ export default function Studio() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (activeTool === 'merge' && mergeFiles.length < 2) return setError('Please select at least 2 videos to merge.');
-    if (activeTool !== 'merge' && !file && !fileUrl) return setError('Please select a video file or enter a Cloudflare R2 URL.');
-    if (activeTool === 'add-audio' && !secondaryFile) return setError('Please select an audio file to merge.');
-    if (!apiKey) return setError('API Key is required to use the Studio.');
+    if (activeTool === 'merge' && mergeFiles.length < 2) return setError('Vui long chon it nhat 2 video de ghep.');
+    if (activeTool !== 'merge' && !file && !fileUrl) return setError('Vui long chon file video hoac nhap URL Cloudflare R2.');
+    if (activeTool === 'add-audio' && !secondaryFile) return setError('Vui long chon file am thanh de ghep.');
+    if (!apiKey) return setError('Ban can API Key de su dung Studio.');
     
     setError('');
     setLoading(true);
@@ -180,7 +180,7 @@ export default function Studio() {
       } else if (typeof errorDetail === 'object') {
         errorDetail = JSON.stringify(errorDetail);
       }
-      setError(errorDetail || err.message || 'An error occurred during submission.');
+      setError(errorDetail || err.message || 'Da xay ra loi khi gui yeu cau.');
     } finally {
       setLoading(false);
       setUploadProgress(0);
@@ -261,7 +261,7 @@ export default function Studio() {
       setApiKey(draftKey);
     } catch (err) {
       setApiKey(''); // Clear global state 
-      setAuthError('Invalid or expired API Key');
+      setAuthError('API Key khong hop le hoac da het han');
     } finally {
       setIsValidatingAuth(false);
     }
@@ -297,7 +297,7 @@ export default function Studio() {
               disabled={isValidatingAuth || !draftKey || draftKey === apiKey}
               style={{ padding: '0 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              {isValidatingAuth ? <Loader2 size={16} className="animate-spin" /> : 'Verify'}
+              {isValidatingAuth ? <Loader2 size={16} className="animate-spin" /> : 'Xac minh'}
             </button>
           </div>
           {authError && <div style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{authError}</div>}
@@ -364,7 +364,7 @@ export default function Studio() {
         </div>
 
         {error && <div className="animate-fade-in" style={{ padding: '1.5rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', color: 'var(--danger)', borderRadius: 'var(--radius-lg)' }}>
-          <strong>Error Encountered: </strong> {error}
+          <strong>Da gap loi: </strong> {error}
         </div>}
 
         <div className="glass-panel animate-fade-in" style={{ padding: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>

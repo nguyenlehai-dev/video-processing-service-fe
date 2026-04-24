@@ -34,10 +34,10 @@ export default function Auth() {
           password: formData.password
         });
         setIsLogin(true);
-        setError('Registration successful! Please login.');
+        setError('Dang ky thanh cong! Vui long dang nhap.');
       }
     } catch (err) {
-      setError(err.response?.data?.detail || 'An error occurred. Please try again.');
+      setError(err.response?.data?.detail || 'Da xay ra loi. Vui long thu lai.');
     } finally {
       setLoading(false);
     }
@@ -47,7 +47,7 @@ export default function Auth() {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
       <div className="glass-panel" style={{ width: '100%', maxWidth: '400px', padding: '2rem' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--accent-primary)' }}>
-          {isLogin ? 'Welcome Back' : 'Create Account'}
+          {isLogin ? 'Chao mung ban quay lai' : 'Tao tai khoan'}
         </h2>
         
         {error && (
@@ -110,11 +110,11 @@ export default function Auth() {
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
+          {isLogin ? "Chua co tai khoan? " : "Da co tai khoan? "}
           <span 
             onClick={() => setIsLogin(!isLogin)} 
             style={{ color: 'var(--accent-primary)', cursor: 'pointer', fontWeight: '500' }}>
-            {isLogin ? 'Register here' : 'Login here'}
+            {isLogin ? 'Dang ky ngay' : 'Dang nhap tai day'}
           </span>
         </div>
       </div>

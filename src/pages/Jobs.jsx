@@ -15,7 +15,7 @@ export default function Jobs() {
 
   const fetchJobs = async (currentPage = page) => {
     if (!apiKey) {
-      setError('No API Key found. Please enter your API Key in the Studio or API Docs page first to track your jobs.');
+      setError('Khong tim thay API Key. Vui long nhap API Key trong trang Studio hoac API Docs de theo doi job.');
       setLoading(false);
       return;
     }
@@ -29,7 +29,7 @@ export default function Jobs() {
       setError('');
     } catch (err) {
       console.error(err);
-      setError('Failed to fetch jobs. Make sure your API key is correct.');
+      setError('Khong the tai danh sach job. Hay kiem tra lai API Key.');
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ export default function Jobs() {
       fetchJobs(page);
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.detail || "Failed to retry job");
+      alert(err.response?.data?.detail || "Khong the chay lai job");
     } finally {
       setRetryLoadings(prev => ({ ...prev, [jobId]: false }));
     }
@@ -171,7 +171,7 @@ export default function Jobs() {
                           onClick={() => setExpandedJob(expandedJob === job.id ? null : job.id)}
                           style={{ padding: '0.35rem 0.75rem', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
                         >
-                          {expandedJob === job.id ? <EyeOff size={14} /> : <Eye size={14} />} {expandedJob === job.id ? 'Hide' : 'Details'}
+                          {expandedJob === job.id ? <EyeOff size={14} /> : <Eye size={14} />} {expandedJob === job.id ? 'An' : 'Chi tiet'}
                         </button>
                         {job.status === 'completed' && job.output_url ? (
                           <a href={job.output_url} target="_blank" rel="noreferrer" className="btn btn-primary premium-glow" style={{ padding: '0.35rem 0.75rem', fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
