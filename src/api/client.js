@@ -11,6 +11,45 @@ export const apiClient = axios.create({
   },
 });
 
+function extractErrorDetail(detail) {
+  if (typeof detail === 'string') return detail;
+  if (Array.isArray(detail)) {
+    return detail
+      .map((item) => {
+        if (typeof item === 'string') return item;
+        if (item && typeof item === 'object' && typeof item.msg === 'string') return item.msg;
+        return '';
+      })
+      .filter(Boolean)
+      .join(' ');
+  }
+  if (detail && typeof detail === 'object') {
+    return detail.summary || detail.message || '';
+  }
+  return '';
+}
+
+function shouldLogoutOn401(error) {
+  const originalRequest = error.config;
+  const url = originalRequest?.url || '';
+  if (url.includes('/auth/me')) return true;
+
+  const hasApiKeyHeader = Boolean(
+    originalRequest?.headers?.['X-API-Key'] ||
+    originalRequest?.headers?.['x-api-key']
+  );
+  if (hasApiKeyHeader) return false;
+
+  const detail = extractErrorDetail(error.response?.data?.detail).toLowerCase();
+  return [
+    'access token expired',
+    'invalid access token',
+    'invalid bearer token',
+    'missing bearer token',
+    'not authenticated',
+    'token expired',
+  ].some((phrase) => detail.includes(phrase));
+}
 // Interceptor to attach the JWT Token for auth endpoints
 apiClient.interceptors.request.use((config) => {
   const token = useAuthStore.getState().token;
@@ -30,7 +69,7 @@ apiClient.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.status === 401 && shouldLogoutOn401(error)) {
       useAuthStore.getState().logout();
       window.location.href = '/login';
     }
